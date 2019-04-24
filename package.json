@@ -1,0 +1,22 @@
+{
+  "name": "programming-problems",
+  "version": "1.0.0",
+  "description": "This repository contains some common algorithm programming challenges and the solutions to each one, with accompanying tests written with Jest.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TiagoMaiaL/Programming-Problems.git"
+  },
+  "author": "Tiago Maia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TiagoMaiaL/Programming-Problems/issues"
+  },
+  "homepage": "https://github.com/TiagoMaiaL/Programming-Problems#readme",
+  "dependencies": {
+    "jest": "^24.7.1"
+  }
+}
