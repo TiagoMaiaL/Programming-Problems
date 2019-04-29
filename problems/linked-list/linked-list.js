@@ -20,32 +20,27 @@ function LinkedList() {
     let tail = null;
 }
 
-function SinglyLinkedList() {
-
-}
-
-function DoublyLinkedList() {
-
-}
-
 /**
  * A single node of a linked list.
+ * @param {Any} value - the value contained in Node when new() is called.
+ * @param {Node} previous - the reference to the previous node.
+ * @param {Node} next - the reference to the next node.
  */
-function Node() {
+function Node(value, previous, next) {
     /**
      * The value contained in the node.
      */
-    const value = null;
+    this.value = value || null;
 
     /**
      * The reference to the previous node.
      */
-    let previous = null;
+    this.previous = previous || null;
 
     /**
      * The reference to the next node.
      */
-    let next = null;
+    this.next = next || null;
 }
 
-module.exports = { SinglyLinkedList, DoublyLinkedList, Node };
+module.exports = { LinkedList, Node };
