@@ -2,22 +2,38 @@
 
 /**
  * A linked list object.
+ * @param {Array} elements - the elements to be in node.
  */
-function LinkedList() {
+function LinkedList(elements) {
+    if (elements === undefined || elements === null) {
+        throw new TypeError('The elements must be valid.');
+    }
+
+    // Make sure we have an array of elements.
+    if (!Array.isArray(elements)) {
+        elements = Array.from(elements);
+    }
+
     /**
      * The number of elements in the linked list.
      */
-    this.count = 0;
+    this.count = elements.length;
 
+    const headValue = elements.shift();
     /**
      * The head of the list.
      */
-    let head = null;
+    this.head = headValue !== undefined ? new Node(headValue) : null
 
     /**
      * The tail of a list.
      */
-    let tail = null;
+    this.tail = elements.length > 0 ? elements.reduce((previous, currentValue) => {
+        const node = new Node(currentValue, previous);
+        previous.next = node;
+
+        return node;
+    }, this.head) : null;
 }
 
 /**
@@ -30,7 +46,7 @@ function Node(value, previous, next) {
     /**
      * The value contained in the node.
      */
-    this.value = value || null;
+    this.value = value !== undefined ? value : null;
 
     /**
      * The reference to the previous node.
