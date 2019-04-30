@@ -4,7 +4,7 @@
  * A linked list object.
  * @param {Array} elements - the elements to be in node.
  */
-function LinkedList(elements) {
+function SinglyLinkedList(elements) {
     if (elements === undefined || elements === null) {
         throw new TypeError('The elements must be valid.');
     }
@@ -19,21 +19,12 @@ function LinkedList(elements) {
      */
     this.count = elements.length;
 
-    const headValue = elements.shift();
     /**
      * The head of the list.
      */
-    this.head = headValue !== undefined ? new Node(headValue) : null
-
-    /**
-     * The tail of a list.
-     */
-    this.tail = elements.length > 0 ? elements.reduce((previous, currentValue) => {
-        const node = new Node(currentValue, previous);
-        previous.next = node;
-
-        return node;
-    }, this.head) : null;
+    this.head = elements.reduceRight((previous, current) => {
+        return new Node(current, previous);
+    }, null);
 }
 
 /**
@@ -41,7 +32,7 @@ function LinkedList(elements) {
  * @param {Function} callback - the function to be applied to the nodes.
  * @param {Any} initialValue - the initial value to be used in the reduction.
  */
-LinkedList.prototype.reduce = function(callback, initialValue) {
+SinglyLinkedList.prototype.reduce = function(callback, initialValue) {
     if (this.count <= 1) {
         return this.head.value;
     }
@@ -64,19 +55,13 @@ LinkedList.prototype.reduce = function(callback, initialValue) {
 /**
  * A single node of a linked list.
  * @param {Any} value - the value contained in Node when new() is called.
- * @param {Node} previous - the reference to the previous node.
  * @param {Node} next - the reference to the next node.
  */
-function Node(value, previous, next) {
+function Node(value, next) {
     /**
      * The value contained in the node.
      */
     this.value = value !== undefined ? value : null;
-
-    /**
-     * The reference to the previous node.
-     */
-    this.previous = previous || null;
 
     /**
      * The reference to the next node.
@@ -84,4 +69,4 @@ function Node(value, previous, next) {
     this.next = next || null;
 }
 
-module.exports = { LinkedList, Node };
+module.exports = { SinglyLinkedList, Node };

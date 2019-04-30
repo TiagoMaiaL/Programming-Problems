@@ -1,6 +1,6 @@
 'use strict';
 
-const { LinkedList, Node } = require('./linked-list');
+const { SinglyLinkedList, Node } = require('./linked-list');
 
 describe('Node', () => {
     test('It begins with a null value', () => {
@@ -13,17 +13,6 @@ describe('Node', () => {
         expect(node.value).toBe('testing');
     });
 
-    test('It begins with the previous node reference set to null', () => {
-        const node = new Node();
-        expect(node.previous).toBeNull();
-    });
-
-    test('It accepts the previous node reference as the second argument', () => {
-        const previous = new Node(2);
-        const current = new Node(3, previous);
-        expect(current.previous).toBe(previous);
-    });
-
     test('It begins with the next node reference set to null', () => {
         const node = new Node(0);
         expect(node.next).toBeNull();
@@ -31,47 +20,46 @@ describe('Node', () => {
 
     test('It accepts the next node reference as the last argument', () => {
         const next = new Node(1);
-        const current = new Node(0, undefined, next);
+        const current = new Node(0, next);
         expect(current.next).toBe(next);
     });
 });
 
-describe('Linked List', () => {
+describe('Singly Linked List', () => {
     test('It begins with the count equals to zero', () => {
-        const linkedList = new LinkedList(0);
-        expect(linkedList.count).toBe(0);
+        const singlyLinkedList = new SinglyLinkedList(0);
+        expect(singlyLinkedList.count).toBe(0);
     });
 
     test('It accepts any value as the elements, except null and undefined', () => {
-        expect(() => new LinkedList(null)).toThrow(TypeError);
+        expect(() => new SinglyLinkedList(null)).toThrow(TypeError);
     });
 
     test('It begins with the head set to null if arr is empty', () => {
-        const linkedList = new LinkedList([]);
-        expect(linkedList.head).toBeNull();
+        const singlyLinkedList = new SinglyLinkedList([]);
+        expect(singlyLinkedList.head).toBeNull();
     });
 
     test('It accepts an array of one value as element', () => {
-        const linkedList = new LinkedList(['val']);
-        expect(linkedList.head.value).toBe('val');
-        expect(linkedList.tail).toBeNull();
+        const singlyLinkedList = new SinglyLinkedList(['val']);
+        expect(singlyLinkedList.head.value).toBe('val');
     });
 
     test('It accepts an array of two values as elements', () => {
-        const linkedList = new LinkedList(['val1', 'val2']);
-        expect(linkedList.head).toEqual(expect.any(Node));
-        expect(linkedList.tail.value).toBe('val2');
+        const singlyLinkedList = new SinglyLinkedList(['val1', 'val2']);
+        expect(singlyLinkedList.head).toEqual(expect.any(Node));
+        expect(singlyLinkedList.head.next.value).toBe('val2');
     });
 
     test('It accepts an array of n values as elements', () => {
         let source = [];
         for (let i = 0; i < 100; i++) source.push(i);
 
-        const linkedList = new LinkedList([...source]);
-        expect(linkedList.count).toBe(source.length);
+        const singlyLinkedList = new SinglyLinkedList([...source]);
+        expect(singlyLinkedList.count).toBe(source.length);
 
         const listElements = [];
-        let current = linkedList.head;
+        let current = singlyLinkedList.head;
 
         while (true) {
             listElements.push(current.value);
@@ -87,19 +75,19 @@ describe('Linked List', () => {
     });
 });
 
-describe('linkedList.Reduce', () => {
+describe('singlyLinkedList.reduce', () => {
     test('It returns the single list value if the list is of length 1', () => {
-        const linkedList = new LinkedList([1]);
-        expect(linkedList.reduce((x, y) => x + y)).toBe(1);
+        const singlyLinkedList = new SinglyLinkedList([1]);
+        expect(singlyLinkedList.reduce((x, y) => x + y)).toBe(1);
     });
 
     test('It returns the expected summed value', () => {
-        const linkedList = new LinkedList([1, 2, 3, 4, 5]);
-        expect(linkedList.reduce((x, y) => x + y)).toBe(15);
+        const singlyLinkedList = new SinglyLinkedList([1, 2, 3, 4, 5]);
+        expect(singlyLinkedList.reduce((x, y) => x + y)).toBe(15);
     });
 
     test('It returns the expected summed value when the initial value to reduce is provided', () => {
-        const linkedList = new LinkedList([1, 2, 3, 4, 5]);
-        expect(linkedList.reduce((x, y) => x + y, 5)).toBe(20);
+        const singlyLinkedList = new SinglyLinkedList([1, 2, 3, 4, 5]);
+        expect(singlyLinkedList.reduce((x, y) => x + y, 5)).toBe(20);
     });
 });
