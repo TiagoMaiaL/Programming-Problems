@@ -42,7 +42,7 @@ describe('Linked List', () => {
         expect(linkedList.count).toBe(0);
     });
 
-    test('It accets any value as the elements, except null and undefined', () => {
+    test('It accepts any value as the elements, except null and undefined', () => {
         expect(() => new LinkedList(null)).toThrow(TypeError);
     });
 
@@ -84,5 +84,22 @@ describe('Linked List', () => {
         }
         
         expect(listElements).toEqual(source);
+    });
+});
+
+describe('linkedList.Reduce', () => {
+    test('It returns the single list value if the list is of length 1', () => {
+        const linkedList = new LinkedList([1]);
+        expect(linkedList.reduce((x, y) => x + y)).toBe(1);
+    });
+
+    test('It returns the expected summed value', () => {
+        const linkedList = new LinkedList([1, 2, 3, 4, 5]);
+        expect(linkedList.reduce((x, y) => x + y)).toBe(15);
+    });
+
+    test('It returns the expected summed value when the initial value to reduce is provided', () => {
+        const linkedList = new LinkedList([1, 2, 3, 4, 5]);
+        expect(linkedList.reduce((x, y) => x + y, 5)).toBe(20);
     });
 });

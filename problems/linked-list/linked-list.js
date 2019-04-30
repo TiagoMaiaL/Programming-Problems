@@ -37,6 +37,31 @@ function LinkedList(elements) {
 }
 
 /**
+ * Reduces the linked list to a single value by using callback.
+ * @param {Function} callback - the function to be applied to the nodes.
+ * @param {Any} initialValue - the initial value to be used in the reduction.
+ */
+LinkedList.prototype.reduce = function(callback, initialValue) {
+    if (this.count <= 1) {
+        return this.head.value;
+    }
+
+    // Declare the reducer to apply the callback with to previous and current nodes, accumulating the result.
+    const reducer = (accumulator, node) => {
+        accumulator = callback(accumulator, node.value)
+
+        // Reduce the remaining list.
+        if (node.next !== null) {
+            accumulator = reducer(accumulator, node.next);
+        }
+
+        return accumulator;
+    }
+
+    return reducer(initialValue || this.head.value, initialValue != null ? this.head : this.head.next);
+}
+
+/**
  * A single node of a linked list.
  * @param {Any} value - the value contained in Node when new() is called.
  * @param {Node} previous - the reference to the previous node.
