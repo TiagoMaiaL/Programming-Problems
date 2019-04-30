@@ -73,6 +73,16 @@ describe('Singly Linked List', () => {
         
         expect(listElements).toEqual(source);
     });
+
+    test('It has a tail property', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1', 'val2', 'val3']);
+        expect(singlyLinkedList.tail.value).toBe('val3');
+    });
+
+    test('The tail is equals to the head if the list has one element', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1']);
+        expect(singlyLinkedList.head).toBe(singlyLinkedList.tail);
+    });
 });
 
 describe('singlyLinkedList.reduce', () => {

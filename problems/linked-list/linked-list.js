@@ -25,6 +25,25 @@ function SinglyLinkedList(elements) {
     this.head = elements.reduceRight((previous, current) => {
         return new Node(current, previous);
     }, null);
+
+    /**
+     * The tail of the list.
+     */
+    Object.defineProperty(this, 'tail', {
+        get() {
+            const getTail = node => {
+                if (node.next === null) {
+                    return node;
+                } else {
+                    return getTail(node.next);
+                }
+            }
+
+            this._tail = this._tail || getTail(this.head);
+
+            return this._tail;
+        }
+    });
 }
 
 /**
