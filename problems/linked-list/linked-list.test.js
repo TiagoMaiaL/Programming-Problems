@@ -85,6 +85,44 @@ describe('Singly Linked List', () => {
     });
 });
 
+describe('singlyLinkedList.push', () => {
+    test('It adds an element to the end of the list', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1']);
+        singlyLinkedList.push('val2');
+
+        expect(singlyLinkedList.tail.value).toBe('val2');
+        expect(singlyLinkedList.head.next.value).toBe('val2');
+    });
+
+    test('It adds an element and increases the count', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1']);
+        singlyLinkedList.push('val2');
+
+        expect(singlyLinkedList.count).toBe(2);
+    });
+});
+
+describe('singlyLinkedList.pop', () => {
+    test('It removes the last element of the list', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1', 'val2']);
+        singlyLinkedList.pop();
+
+        expect(singlyLinkedList.tail.value).toBe('val1');
+    });
+
+    test('It removes the last element and descreases the count', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1', 'val2']);
+        singlyLinkedList.pop();
+
+        expect(singlyLinkedList.count).toBe(1);
+    });
+
+    test('It removes the last element and returns it', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1', 'val2']);
+        expect(singlyLinkedList.pop()).toBe('val2');
+    });
+});
+
 describe('singlyLinkedList.reduce', () => {
     test('It returns the single list value if the list is of length 1', () => {
         const singlyLinkedList = new SinglyLinkedList([1]);

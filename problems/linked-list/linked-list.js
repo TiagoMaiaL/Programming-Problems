@@ -31,19 +31,41 @@ function SinglyLinkedList(elements) {
      */
     Object.defineProperty(this, 'tail', {
         get() {
-            const getTail = node => {
-                if (node.next === null) {
-                    return node;
-                } else {
-                    return getTail(node.next);
-                }
-            }
-
+            const getTail = node => node.next === null ? node : getTail(node.next);
             this._tail = this._tail || getTail(this.head);
 
             return this._tail;
         }
     });
+}
+
+/**
+ * Given a value, adds it to the end of the list.
+ * @param {Any} value - the value to be push into the list.
+ */
+SinglyLinkedList.prototype.push = function(value) {
+    const newTail = new Node(value);
+    const oldTail = this.tail;
+
+    oldTail.next = newTail;
+    this._tail = newTail;
+    this.count += 1;
+}
+
+/**
+ * Removes the last element of the list.
+ */
+SinglyLinkedList.prototype.pop = function() {
+    // The new tail is the element before the current tail.
+    let getNewTail = (node) => {
+        return node.next === this.tail ? node : newTail(node.next);
+    };
+    this._tail = getNewTail(this.head);
+    this.count -= 1;
+    const lastValue = this.tail.next.value;
+    this.tail.next = null;
+
+    return lastValue;
 }
 
 /**
