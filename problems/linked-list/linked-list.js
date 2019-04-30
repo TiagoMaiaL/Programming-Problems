@@ -39,14 +39,14 @@ SinglyLinkedList.prototype.reduce = function(callback, initialValue) {
 
     // Declare the reducer to apply the callback with to previous and current nodes, accumulating the result.
     const reducer = (accumulator, node) => {
-        accumulator = callback(accumulator, node.value)
-
-        // Reduce the remaining list.
-        if (node.next !== null) {
-            accumulator = reducer(accumulator, node.next);
+        if (node === null) {
+            return accumulator;
         }
 
-        return accumulator;
+        const { value, next } = node;
+
+        // Reduce the remaining list.
+        return reducer(callback(accumulator, value), next);
     }
 
     return reducer(initialValue || this.head.value, initialValue != null ? this.head : this.head.next);
