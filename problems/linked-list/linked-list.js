@@ -1,6 +1,23 @@
 'use strict';
 
 /**
+ * A single node of a linked list.
+ * @param {Any} value - the value contained in Node when new() is called.
+ * @param {Node} next - the reference to the next node.
+ */
+function Node(value, next) {
+    /**
+     * The value contained in the node.
+     */
+    this.value = value !== undefined ? value : null;
+
+    /**
+     * The reference to the next node.
+     */
+    this.next = next || null;
+}
+
+/**
  * A linked list object.
  * @param {Array} elements - the elements to be in node.
  */
@@ -54,6 +71,7 @@ SinglyLinkedList.prototype.push = function(value) {
 
 /**
  * Removes the last element of the list.
+ * @returns the removed node's value.
  */
 SinglyLinkedList.prototype.pop = function() {
     // The new tail is the element before the current tail.
@@ -66,6 +84,27 @@ SinglyLinkedList.prototype.pop = function() {
     this.tail.next = null;
 
     return lastValue;
+}
+
+/**
+ * Given a value, add it to the beginning of the list, making it the head.
+ */
+SinglyLinkedList.prototype.unshift = function(value) {
+    let newHead = new Node(value, this.head);
+    this.head = newHead;
+    this.count += 1;
+}
+
+/**
+ * Removes the first element of the list.
+ * @returns {Any} the value of the node being removed.
+ */
+SinglyLinkedList.prototype.shift = function() {
+    const value = this.head.value;
+    this.head = this.head.next;
+    this.count -= 1;
+
+    return value;
 }
 
 /**
@@ -91,23 +130,6 @@ SinglyLinkedList.prototype.reduce = function(callback, initialValue) {
     }
 
     return reducer(initialValue || this.head.value, initialValue != null ? this.head : this.head.next);
-}
-
-/**
- * A single node of a linked list.
- * @param {Any} value - the value contained in Node when new() is called.
- * @param {Node} next - the reference to the next node.
- */
-function Node(value, next) {
-    /**
-     * The value contained in the node.
-     */
-    this.value = value !== undefined ? value : null;
-
-    /**
-     * The reference to the next node.
-     */
-    this.next = next || null;
 }
 
 module.exports = { SinglyLinkedList, Node };

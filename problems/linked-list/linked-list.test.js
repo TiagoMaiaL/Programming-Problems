@@ -123,6 +123,43 @@ describe('singlyLinkedList.pop', () => {
     });
 });
 
+describe('singlyLinkedList.unshift', () => {
+    test('It inserts the given value at the beginning of the list', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val2']);
+        singlyLinkedList.unshift('val1');
+
+        expect(singlyLinkedList.head.value).toBe('val1');
+        expect(singlyLinkedList.head.next.value).toBe('val2');
+    });
+
+    test('It inserts the given value at the beginning and updates the count', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val2']);
+        singlyLinkedList.unshift('val1');
+        expect(singlyLinkedList.count).toBe(2);
+    });
+});
+
+describe('singlyLinkedList.shift', () => {
+    test('It removes the first value of the list', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1', 'val2']);
+        singlyLinkedList.shift();
+
+        expect(singlyLinkedList.head.value).toBe('val2');
+    });
+
+    test('It removes the first value of the list and returns it', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1', 'val2']);
+        expect(singlyLinkedList.shift()).toBe('val1');
+    });
+
+    test('It removes the first value of the list and updates the count', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1', 'val2']);
+        singlyLinkedList.shift()
+
+        expect(singlyLinkedList.count).toBe(1);
+    });
+});
+
 describe('singlyLinkedList.reduce', () => {
     test('It returns the single list value if the list is of length 1', () => {
         const singlyLinkedList = new SinglyLinkedList([1]);
