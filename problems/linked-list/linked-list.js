@@ -108,6 +108,28 @@ SinglyLinkedList.prototype.shift = function() {
 }
 
 /**
+ * Given a value, searches the list and returns its index, or -1 if it's not found.
+ * @returns {Number} the index of the value in the list.
+ */
+SinglyLinkedList.prototype.indexOf = function(value) {
+    let index = -1;
+    let lookingIndex = 0;
+    let node = this.head || null;
+
+    while (node !== null) {
+        if (node.value === value) {
+            index = lookingIndex;
+            break;
+        } else {
+            lookingIndex++;
+            node = node.next
+        }
+    }
+
+    return index;
+}
+
+/**
  * Reduces the linked list to a single value by using callback.
  * @param {Function} callback - the function to be applied to the nodes.
  * @param {Any} initialValue - the initial value to be used in the reduction.

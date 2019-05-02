@@ -160,6 +160,27 @@ describe('singlyLinkedList.shift', () => {
     });
 });
 
+describe('singlyLinkedList.indexOf', () => {
+    test('It returns -1 if the list is empty', () => {
+        expect((new SinglyLinkedList([])).indexOf('val1')).toBe(-1);
+    });
+
+    test('It returns -1 if the value isn\'t found', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val2', 'val3']);
+        expect(singlyLinkedList.indexOf('val1')).toBe(-1);
+    });
+
+    test('It returns the index of the searched value', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1', 'val2', 'val3']);
+        expect(singlyLinkedList.indexOf('val2')).toBe(1);
+    });
+
+    test('It returns the value index, if it\'s found', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1', 'val2', 'val3']);
+        expect(singlyLinkedList.indexOf('val3')).toBe(2);
+    });
+});
+
 describe('singlyLinkedList.reduce', () => {
     test('It returns the single list value if the list is of length 1', () => {
         const singlyLinkedList = new SinglyLinkedList([1]);
