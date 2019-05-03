@@ -34,32 +34,40 @@ Stack.prototype.pop = function() {
  * A stack that supports the max operation in O(1) time.
  */
 function MaxStack() {
-
-    this.values = [];
-
     /**
-     * The largest value push into the stack so far.
+     * The values of the stack.
      */
-    this.largest = null;
+    this.values = [];
 }
 
 // TODO: Check on how to inherit from another type.
 // MaxStack.prototype = Stack.prototype;
 
 MaxStack.prototype.push = function(value) {
-    if (this.largest === null || value > this.largest) {
-        this.largest = value
-    }
+    // Get a reference to the max and min values from the last pushed value:
+    let { max, min } = this.values[this.values.length - 1] || { max: value, min: value };
 
-    Stack.prototype.push.call(this, value);
+    // Every time we push a value, we need to wrap it in an object, so we can also keep a record
+    // of the largest and smallest values in the stack so far.
+    Stack.prototype.push.call(this, {
+        value: value,
+        max: value > max ? value : max,
+        min: value < min ? value : min
+    });
 }
+
+MaxStack.prototype.pop = function() {
+    if (this.values.length > 0) {
+        return Stack.prototype.pop.apply(this).value;
+    }
+};
 
 /**
  * Returns the largest element pushed into the stack.
  */
 MaxStack.prototype.max = function() {
-    if (this.largest !== undefined && this.largest !== null) {
-        return this.largest;
+    if (this.values.length > 0) {
+        return this.values[this.values.length - 1].max;
     }
 }
 

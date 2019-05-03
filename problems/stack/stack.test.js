@@ -38,6 +38,14 @@ describe('Stack', () => {
 });
 
 describe('MaxStack', () => {
+    test('It has a function to pop values from it', () => {
+        const maxStack = new MaxStack();
+        maxStack.push(12);
+        maxStack.push(1500);
+
+        expect(maxStack.pop()).toBe(1500);
+    });
+
     test('It has a function to get the maximum element of the stack', () => {
         const maxStack = new MaxStack();
         expect(maxStack.max()).toBeUndefined();
@@ -59,6 +67,28 @@ describe('MaxStack', () => {
         
         expect(maxStack.max()).toBe(19);
     });
+
+    test('It returns the largest pushed value currently in the stack', () => {
+        const maxStack = new MaxStack();
+        maxStack.push(12);
+        maxStack.push(1000);
+        
+        maxStack.pop();
+        
+        expect(maxStack.max()).toBe(12);
+    });
+
+    test('It returns the largest pushed value currently in a stack with n elements', () => {
+        const maxStack = new MaxStack();
+        maxStack.push(12);
+        maxStack.push(1000);
+        maxStack.push(200);
+        maxStack.push(1500);
+        maxStack.push(1300);
+        
+        maxStack.pop(); // 1300, max: 1500
+        maxStack.pop(); // 1500, max: 1000
+        
+        expect(maxStack.max()).toBe(1000);
+    });
 });
-
-
