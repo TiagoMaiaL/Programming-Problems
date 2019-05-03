@@ -92,3 +92,55 @@ describe('MaxStack', () => {
         expect(maxStack.max()).toBe(1000);
     });
 });
+
+describe('MinStack', () => {
+    test('It has a function to get the minimum element of the stack', () => {
+        const minStack = new MinStack();
+        expect(minStack.min()).toBeUndefined();
+    });
+
+    test('It returns the single value pushed into the stack', () => {
+        const minStack = new MinStack();
+        minStack.push(-1200);
+        
+        expect(minStack.min()).toBe(-1200);
+    });
+
+    test('It returns the smallest negative value pushed into the stack', () => {
+        const minStack = new MinStack();
+        minStack.push(-25);
+        minStack.push(800);
+        minStack.push(1000);
+        
+        expect(minStack.min()).toBe(-25);
+    });
+
+    test('It returns the smallest positive value pushed into the stack', () => {
+        const minStack = new MinStack();
+        minStack.push(1);
+        minStack.push(800);
+        minStack.push(1000);
+        
+        expect(minStack.min()).toBe(1);
+    });
+
+    test('It returns 0 as the smallest value pushed into the stack', () => {
+        const minStack = new MinStack();
+        minStack.push(1);
+        minStack.push(800);
+        minStack.push(1000);
+        minStack.push(0);
+        
+        expect(minStack.min()).toBe(0);
+    });
+
+    test('It returns the smallest value in the stack', () => {
+        const minStack = new MinStack();
+        minStack.push(1);
+        minStack.push(800);
+        minStack.push(1000);
+        minStack.push(-1000);
+        
+        expect(minStack.min()).toBe(-1000);
+    });
+});

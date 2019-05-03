@@ -45,14 +45,13 @@ function MaxStack() {
 
 MaxStack.prototype.push = function(value) {
     // Get a reference to the max and min values from the last pushed value:
-    let { max, min } = this.values[this.values.length - 1] || { max: value, min: value };
+    let { max } = this.values[this.values.length - 1] || { max: value, min: value };
 
     // Every time we push a value, we need to wrap it in an object, so we can also keep a record
     // of the largest and smallest values in the stack so far.
     Stack.prototype.push.call(this, {
         value: value,
         max: value > max ? value : max,
-        min: value < min ? value : min
     });
 }
 
@@ -75,7 +74,37 @@ MaxStack.prototype.max = function() {
  * A stack that supports the Min operation in O(1) time.
  */
 function MinStack() {
+    /**
+     * The values of the stack.
+     */
+    this.values = [];
+}
 
+MinStack.prototype.push = function(value) {
+    let min;
+
+    // Get the last pushed value.
+    if (this.values.length > 0) {
+        const last = this.values[this.values.length - 1];
+        min = value < last.min ? value : last.min;
+    } else {
+        min = value;
+    }
+    
+    // Reuse the push from the MaxStack.
+    MaxStack.prototype.push.call(this, value);
+
+    // Get the new pushed one and add the min to it.
+    this.values[this.values.length - 1].min = min;
+}
+
+/**
+ * Returns the smallest element pushed into the stack.
+ */
+MinStack.prototype.min = function() {
+    if (this.values.length > 0) {
+        return this.values[this.values.length - 1].min;
+    }
 }
 
 /**
