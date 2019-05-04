@@ -34,14 +34,11 @@ Stack.prototype.pop = function() {
  * A stack that supports the max operation in O(1) time.
  */
 function MaxStack() {
-    /**
-     * The values of the stack.
-     */
-    this.values = [];
+    Stack.call(this);
 }
 
-// TODO: Check on how to inherit from another type.
-// MaxStack.prototype = Stack.prototype;
+// Inherit from stack:
+MaxStack.prototype = new Stack();
 
 MaxStack.prototype.push = function(value) {
     // Get a reference to the max and min values from the last pushed value:
@@ -71,16 +68,15 @@ MaxStack.prototype.max = function() {
 }
 
 /**
- * A stack that supports the Min operation in O(1) time.
+ * A stack that supports the Min and Max operations in O(1) time.
  */
-function MinStack() {
-    /**
-     * The values of the stack.
-     */
-    this.values = [];
+function MinMaxStack() {
+    Stack.call(this);
 }
 
-MinStack.prototype.push = function(value) {
+MinMaxStack.prototype = new MaxStack();
+
+MinMaxStack.prototype.push = function(value) {
     let min;
 
     // Get the last pushed value.
@@ -101,18 +97,11 @@ MinStack.prototype.push = function(value) {
 /**
  * Returns the smallest element pushed into the stack.
  */
-MinStack.prototype.min = function() {
+MinMaxStack.prototype.min = function() {
     if (this.values.length > 0) {
         return this.values[this.values.length - 1].min;
     }
 }
 
-/**
- * A stack that supports the Min and Max operations in O(1) time.
- */
-function MinMaxStack() {
-
-}
-
-module.exports = { Stack, MaxStack, MinStack, MinMaxStack };
+module.exports = { Stack, MaxStack, MinMaxStack };
 

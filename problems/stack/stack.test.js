@@ -1,6 +1,6 @@
 'use strict';
 
-const { Stack, MaxStack, MinStack, MinMaxStack } = require('./stack');
+const { Stack, MaxStack, MinMaxStack } = require('./stack');
 
 describe('Stack', () => {
     test('It has a push operation in it', () => {
@@ -93,54 +93,76 @@ describe('MaxStack', () => {
     });
 });
 
-describe('MinStack', () => {
-    test('It has a function to get the minimum element of the stack', () => {
-        const minStack = new MinStack();
-        expect(minStack.min()).toBeUndefined();
+describe('MinMaxStack', () => {
+    test('It has a function to push a value into the stack', () => {
+        const minMaxStack = new MinMaxStack();
+        expect(minMaxStack.push(500)).toBeUndefined();
     });
 
-    test('It returns the single value pushed into the stack', () => {
-        const minStack = new MinStack();
-        minStack.push(-1200);
+    test('It has a function to pop a value from the stack', () => {
+        const minMaxStack = new MinMaxStack();
+        minMaxStack.push(500)
+
+        expect(minMaxStack.pop()).toBe(500);
+    });
+
+    test('It has a function to get the maximum value of the stack', () => {
+        const minMaxStack = new MinMaxStack();
+        minMaxStack.push(500)
+        minMaxStack.push(245);
+        minMaxStack.push(12);
+        minMaxStack.push(-55);
+
+        expect(minMaxStack.max()).toBe(500);
+    });
+
+    test('It has a function to get the minimum element of the stack', () => {
+        const minMaxStack = new MinMaxStack();
+        expect(minMaxStack.min()).toBeUndefined();
+    });
+
+    test('It returns the single minimum value pushed into the stack', () => {
+        const minMaxStack = new MinMaxStack();
+        minMaxStack.push(-1200);
         
-        expect(minStack.min()).toBe(-1200);
+        expect(minMaxStack.min()).toBe(-1200);
     });
 
     test('It returns the smallest negative value pushed into the stack', () => {
-        const minStack = new MinStack();
-        minStack.push(-25);
-        minStack.push(800);
-        minStack.push(1000);
+        const minMaxStack = new MinMaxStack();
+        minMaxStack.push(-25);
+        minMaxStack.push(800);
+        minMaxStack.push(1000);
         
-        expect(minStack.min()).toBe(-25);
+        expect(minMaxStack.min()).toBe(-25);
     });
 
     test('It returns the smallest positive value pushed into the stack', () => {
-        const minStack = new MinStack();
-        minStack.push(1);
-        minStack.push(800);
-        minStack.push(1000);
+        const minMaxStack = new MinMaxStack();
+        minMaxStack.push(1);
+        minMaxStack.push(800);
+        minMaxStack.push(1000);
         
-        expect(minStack.min()).toBe(1);
+        expect(minMaxStack.min()).toBe(1);
     });
 
     test('It returns 0 as the smallest value pushed into the stack', () => {
-        const minStack = new MinStack();
-        minStack.push(1);
-        minStack.push(800);
-        minStack.push(1000);
-        minStack.push(0);
+        const minMaxStack = new MinMaxStack();
+        minMaxStack.push(1);
+        minMaxStack.push(800);
+        minMaxStack.push(1000);
+        minMaxStack.push(0);
         
-        expect(minStack.min()).toBe(0);
+        expect(minMaxStack.min()).toBe(0);
     });
 
     test('It returns the smallest value in the stack', () => {
-        const minStack = new MinStack();
-        minStack.push(1);
-        minStack.push(800);
-        minStack.push(1000);
-        minStack.push(-1000);
+        const minMaxStack = new MinMaxStack();
+        minMaxStack.push(1);
+        minMaxStack.push(800);
+        minMaxStack.push(1000);
+        minMaxStack.push(-1000);
         
-        expect(minStack.min()).toBe(-1000);
+        expect(minMaxStack.min()).toBe(-1000);
     });
 });
