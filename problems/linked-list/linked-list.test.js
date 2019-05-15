@@ -182,6 +182,16 @@ describe('singlyLinkedList.indexOf', () => {
 });
 
 describe('singlyLinkedList.reduce', () => {
+    test('It returns undefined for a list of 0 elements and no initial value', () => {
+        const singlyLinkedList = new SinglyLinkedList([]);
+        expect(singlyLinkedList.reduce((x, y) => x + y)).toBeUndefined();
+    });
+
+    test('It returns the initial value for a list of 0 elements', () => {
+        const singlyLinkedList = new SinglyLinkedList([]);
+        expect(singlyLinkedList.reduce((x, y) => x + y, 2)).toBe(2);
+    });
+
     test('It returns the single list value if the list is of length 1', () => {
         const singlyLinkedList = new SinglyLinkedList([1]);
         expect(singlyLinkedList.reduce((x, y) => x + y)).toBe(1);
@@ -195,5 +205,64 @@ describe('singlyLinkedList.reduce', () => {
     test('It returns the expected summed value when the initial value to reduce is provided', () => {
         const singlyLinkedList = new SinglyLinkedList([1, 2, 3, 4, 5]);
         expect(singlyLinkedList.reduce((x, y) => x + y, 5)).toBe(20);
+    });
+});
+
+describe('singlyLinkedList.getArrayFromList', () => {
+    test('It returns an empty array for a list of zero elements', () => {
+        const singlyLinkedList = new SinglyLinkedList([]);
+        expect(singlyLinkedList.getArrayFromList()).toEqual([]);
+    });
+
+    test('It returns an array of one element for a list of one element', () => {
+        const singlyLinkedList = new SinglyLinkedList([1]);
+        expect(singlyLinkedList.getArrayFromList()).toEqual([1]);
+    });
+
+    test('It returns an array of n elements for a list of n nodes', () => {
+        const input = [1, 2, 5, 104, 6, 8, 7, 102, 600, 205, 2323];
+        const expectOutput = input;
+
+        const singlyLinkedList = new SinglyLinkedList(input);
+        expect(singlyLinkedList.getArrayFromList()).toEqual(expectOutput);
+    });
+});
+
+describe('singlyLinkedList.insertionSort', () => {
+    test('it returns a list of one single node for a linked list of one element', () => {
+        const singlyLinkedList = new SinglyLinkedList([1]);
+        expect(singlyLinkedList.insertionSort().getArrayFromList()).toEqual([1])
+    });
+
+    test('it sorts a linked list of two nodes', () => {
+        const singlyLinkedList = new SinglyLinkedList([2, 1]);
+        expect(singlyLinkedList.insertionSort().getArrayFromList()).toEqual([1, 2]);
+    });
+
+    test('it sorts a linked list of four nodes', () => {
+        const singlyLinkedList = new SinglyLinkedList([10, 5, 2, 1]);
+        expect(singlyLinkedList.insertionSort().getArrayFromList()).toEqual([1, 2, 5, 10]);
+    });
+
+    test('it sorts a linked list of 10 nodes', () => {
+        const singlyLinkedList = new SinglyLinkedList([3, 1, 9, 8, 7, 10, 6, 5, 4, 2]);
+        expect(singlyLinkedList.insertionSort().getArrayFromList()).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    });
+
+    test('it sorts a linked list with repeated values', () => {
+        const singlyLinkedList = new SinglyLinkedList([3, 1, 9, 8, 7, 10, 7, 6, 8, 5, 4, 2, 1]);
+        expect(singlyLinkedList.insertionSort().getArrayFromList()).toEqual([1, 1, 2, 3, 4, 5, 6, 7, 7, 8, 8, 9, 10]);
+    });
+
+    test('it sorts a linked list of n nodes', () => {
+        const input = [];
+        for (let i = 0; i < 200; i++) {
+            input.push(Math.floor(Math.random() * i));
+        }
+        const expectedOutput = [...input].sort((a, b) => a - b);
+
+        const singlyLinkedList = new SinglyLinkedList(input);
+        
+        expect(singlyLinkedList.insertionSort().getArrayFromList()).toEqual(expectedOutput);
     });
 });
