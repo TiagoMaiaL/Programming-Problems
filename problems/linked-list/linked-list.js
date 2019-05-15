@@ -135,8 +135,8 @@ SinglyLinkedList.prototype.indexOf = function(value) {
  * @param {Any} initialValue - the initial value to be used in the reduction.
  */
 SinglyLinkedList.prototype.reduce = function(callback, initialValue) {
-    if (this.count <= 1) {
-        return this.head.value;
+    if (this.count < 1) {
+        return initialValue;
     }
 
     // Declare the reducer to apply the callback with to previous and current nodes, accumulating the result.
@@ -152,6 +152,25 @@ SinglyLinkedList.prototype.reduce = function(callback, initialValue) {
     }
 
     return reducer(initialValue || this.head.value, initialValue != null ? this.head : this.head.next);
+}
+
+/**
+ * When called, creates a copy of the linked list and converts it into an array.
+ * @returns {Array} the converted linked list into an array.
+ */
+SinglyLinkedList.prototype.getArrayFromList = function() {
+    return this.reduce((array, value) => {
+        array.push(value);
+        return array;
+    }, []);
+}
+
+/**
+ * Sorts the linked list using the insertion sort algorithm.
+ * @returns {SinglyLinkedList} the sorted linked list.
+ */
+SinglyLinkedList.prototype.insertionSort = function() {
+
 }
 
 module.exports = { SinglyLinkedList, Node };

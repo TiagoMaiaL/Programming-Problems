@@ -182,6 +182,16 @@ describe('singlyLinkedList.indexOf', () => {
 });
 
 describe('singlyLinkedList.reduce', () => {
+    test('It returns undefined for a list of 0 elements and no initial value', () => {
+        const singlyLinkedList = new SinglyLinkedList([]);
+        expect(singlyLinkedList.reduce((x, y) => x + y)).toBeUndefined();
+    });
+
+    test('It returns the initial value for a list of 0 elements', () => {
+        const singlyLinkedList = new SinglyLinkedList([]);
+        expect(singlyLinkedList.reduce((x, y) => x + y, 2)).toBe(2);
+    });
+
     test('It returns the single list value if the list is of length 1', () => {
         const singlyLinkedList = new SinglyLinkedList([1]);
         expect(singlyLinkedList.reduce((x, y) => x + y)).toBe(1);
@@ -197,3 +207,34 @@ describe('singlyLinkedList.reduce', () => {
         expect(singlyLinkedList.reduce((x, y) => x + y, 5)).toBe(20);
     });
 });
+
+describe('singlyLinkedList.getArrayFromList', () => {
+    test('It returns an empty array for a list of zero elements', () => {
+        const singlyLinkedList = new SinglyLinkedList([]);
+        expect(singlyLinkedList.getArrayFromList()).toEqual([]);
+    });
+
+    test('It returns an array of one element for a list of one element', () => {
+        const singlyLinkedList = new SinglyLinkedList([1]);
+        expect(singlyLinkedList.getArrayFromList()).toEqual([1]);
+    });
+
+    test('It returns an array of n elements for a list of n nodes', () => {
+        const input = [1, 2, 5, 104, 6, 8, 7, 102, 600, 205, 2323];
+        const expectOutput = input;
+
+        const singlyLinkedList = new SinglyLinkedList(input);
+        expect(singlyLinkedList.getArrayFromList()).toEqual(expectOutput);
+    });
+});
+
+// describe('singlyLinkedList.insertionSort', () => {
+//     test('it returns a list of one single node for a linked list of one element', () => {
+//         const singlyLinkedList = new SinglyLinkedList([1]);
+//         expect(singlyLinkedList.insertionSort()).
+//     });
+
+//     test('it sorts a linked list of two nodes', () => {
+
+//     });
+// });
