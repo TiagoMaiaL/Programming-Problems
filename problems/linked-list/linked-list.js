@@ -166,11 +166,64 @@ SinglyLinkedList.prototype.getArrayFromList = function() {
 }
 
 /**
- * Sorts the linked list using the insertion sort algorithm.
+ * Sorts the singly linked list using the insertion sort algorithm.
  * @returns {SinglyLinkedList} the sorted linked list.
  */
 SinglyLinkedList.prototype.insertionSort = function() {
+     // The head is going to be the first sorted element in the list.
+    let sortedNodesHead = Object.assign({}, this.head);
+    sortedNodesHead.next = null;
 
+    let currentNode = this.head.next;
+    if (currentNode !== null) {
+        do {
+            // Begin traversing and comparing the sorted nodes:
+            // Begin at the first sorted node:
+            let sortedNode = sortedNodesHead;
+            let lastCompared = null;
+            do {
+                // Check if it's equals or greater than the current node:
+                if (currentNode.value <= sortedNode.value) {
+                    // If so, we add it before the sorted node being compared.
+                    const newSortedNode = Object.assign({}, currentNode);
+                    newSortedNode.next = sortedNode;
+
+                    // If the sorted node is the first one, simply set the new head.
+                    if (lastCompared === null) {
+                        sortedNodesHead = newSortedNode;
+                    } else {
+                        // If it's not the first sorted node and there's a last compared one, use it as the previous of the current one.
+                        lastCompared.next = newSortedNode;
+                    }
+
+                    break;
+                }
+
+                // If it's the last node, and the current node isn't smaller than the current sorted one, append it:
+                if (sortedNode.next === null) {
+                    const greatest = Object.assign({}, currentNode);
+                    greatest.next = null;
+
+                    sortedNode.next = greatest;
+
+                    break;
+                }
+                
+                lastCompared = sortedNode;
+                sortedNode = sortedNode.next;
+            } while(sortedNode !== null);
+
+            // Continue to the next one.
+            currentNode = currentNode.next;
+        } while (currentNode !== null);
+    }
+
+    const sortedList = new SinglyLinkedList([]);
+    // TODO: Refactor this:
+    sortedList.head = sortedNodesHead;
+    sortedList.count = 1;
+
+    return sortedList;
 }
 
 module.exports = { SinglyLinkedList, Node };

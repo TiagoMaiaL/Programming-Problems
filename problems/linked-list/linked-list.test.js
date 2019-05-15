@@ -228,13 +228,41 @@ describe('singlyLinkedList.getArrayFromList', () => {
     });
 });
 
-// describe('singlyLinkedList.insertionSort', () => {
-//     test('it returns a list of one single node for a linked list of one element', () => {
-//         const singlyLinkedList = new SinglyLinkedList([1]);
-//         expect(singlyLinkedList.insertionSort()).
-//     });
+describe('singlyLinkedList.insertionSort', () => {
+    test('it returns a list of one single node for a linked list of one element', () => {
+        const singlyLinkedList = new SinglyLinkedList([1]);
+        expect(singlyLinkedList.insertionSort().getArrayFromList()).toEqual([1])
+    });
 
-//     test('it sorts a linked list of two nodes', () => {
+    test('it sorts a linked list of two nodes', () => {
+        const singlyLinkedList = new SinglyLinkedList([2, 1]);
+        expect(singlyLinkedList.insertionSort().getArrayFromList()).toEqual([1, 2]);
+    });
 
-//     });
-// });
+    test('it sorts a linked list of four nodes', () => {
+        const singlyLinkedList = new SinglyLinkedList([10, 5, 2, 1]);
+        expect(singlyLinkedList.insertionSort().getArrayFromList()).toEqual([1, 2, 5, 10]);
+    });
+
+    test('it sorts a linked list of 10 nodes', () => {
+        const singlyLinkedList = new SinglyLinkedList([3, 1, 9, 8, 7, 10, 6, 5, 4, 2]);
+        expect(singlyLinkedList.insertionSort().getArrayFromList()).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    });
+
+    test('it sorts a linked list with repeated values', () => {
+        const singlyLinkedList = new SinglyLinkedList([3, 1, 9, 8, 7, 10, 7, 6, 8, 5, 4, 2, 1]);
+        expect(singlyLinkedList.insertionSort().getArrayFromList()).toEqual([1, 1, 2, 3, 4, 5, 6, 7, 7, 8, 8, 9, 10]);
+    });
+
+    test('it sorts a linked list of n nodes', () => {
+        const input = [];
+        for (let i = 0; i < 200; i++) {
+            input.push(Math.floor(Math.random() * i));
+        }
+        const expectedOutput = [...input].sort((a, b) => a - b);
+
+        const singlyLinkedList = new SinglyLinkedList(input);
+        
+        expect(singlyLinkedList.insertionSort().getArrayFromList()).toEqual(expectedOutput);
+    });
+});
