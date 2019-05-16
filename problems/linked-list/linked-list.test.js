@@ -266,3 +266,30 @@ describe('singlyLinkedList.insertionSort', () => {
         expect(singlyLinkedList.insertionSort().getArrayFromList()).toEqual(expectedOutput);
     });
 });
+
+describe('singlyLinkedList.reverse', () => {
+    test('it returns the reversed empty linked list', () => {
+        const singlyLinkedList = new SinglyLinkedList([]);
+        expect(singlyLinkedList.reversed().getArrayFromList()).toEqual([]);
+    });
+
+    test('it returns the reversed 1->null linked list', () => {
+        const singlyLinkedList = new SinglyLinkedList([1]);
+        expect(singlyLinkedList.reversed().getArrayFromList()).toEqual([1]);
+    });
+
+    test('it returns the reversed 5->1-> linked list', () => {
+        const singlyLinkedList = new SinglyLinkedList([1, 5]);
+        expect(singlyLinkedList.reversed().getArrayFromList()).toEqual([5, 1]);
+    });
+
+    test('it returns the reversed 7->100->1-> linked list', () => {
+        const singlyLinkedList = new SinglyLinkedList([1, 100, 7]);
+        expect(singlyLinkedList.reversed().getArrayFromList()).toEqual([7, 100, 1]);
+    });
+
+    test('it returns the reversed 100->99->98->97->96->95->94->93->92->91->90 linked list', () => {
+        const singlyLinkedList = new SinglyLinkedList([90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]);
+        expect(singlyLinkedList.reversed().getArrayFromList()).toEqual([100, 99, 98, 97, 96, 95, 94, 93, 92, 91, 90]);
+    });
+});

@@ -226,4 +226,33 @@ SinglyLinkedList.prototype.insertionSort = function() {
     return sortedList;
 }
 
+/**
+ * Reverses the singly linked list.
+ * @returns {SinglyLinkedList} the reversed linked list.
+ */
+SinglyLinkedList.prototype.reversed = function() {
+    const reversed = new SinglyLinkedList([]);
+
+    let node = Object.assign(new Node(), this.head);
+    let lastTraversedNode = null;
+
+    while(node !== null) {
+        // Save the next node in a constant.
+        const nextTempNode = node.next ? Object.assign(new Node(), node.next) : null;
+
+        // Set the next node of the current to be the last seen one 
+        // (this inverts the order, by chaning the direction). 
+        node.next = lastTraversedNode;
+        lastTraversedNode = node;
+
+        // Set it as the new one.
+        node = nextTempNode;
+    }
+
+    reversed.count = this.count;
+    reversed.head = lastTraversedNode;
+
+    return reversed;
+}
+
 module.exports = { SinglyLinkedList, Node };
