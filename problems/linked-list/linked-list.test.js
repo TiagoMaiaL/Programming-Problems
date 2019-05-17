@@ -293,3 +293,54 @@ describe('singlyLinkedList.reverse', () => {
         expect(singlyLinkedList.reversed().getArrayFromList()).toEqual([100, 99, 98, 97, 96, 95, 94, 93, 92, 91, 90]);
     });
 });
+
+describe('singlyLinkedList.removeElements', () => {
+    test('it doesn\'t do nothing with an empty list', () => {
+        const singlyLinkedList = new SinglyLinkedList([]);
+        singlyLinkedList.removeElements(1);
+
+        expect(singlyLinkedList.getArrayFromList()).toEqual([]);
+    });
+
+    test('it removes the values of 1 from 1->', () => {
+        const singlyLinkedList = new SinglyLinkedList([1]);
+        singlyLinkedList.removeElements(1);
+
+        expect(singlyLinkedList.getArrayFromList()).toEqual([]);
+    });
+
+    test('it removes the values of 1 from 1->1', () => {
+        const singlyLinkedList = new SinglyLinkedList([1, 1]);
+        singlyLinkedList.removeElements(1);
+
+        expect(singlyLinkedList.getArrayFromList()).toEqual([]);
+    });
+
+    test('it removes the values of 1 from 1->1->2', () => {
+        const singlyLinkedList = new SinglyLinkedList([1, 1, 2]);
+        singlyLinkedList.removeElements(1);
+
+        expect(singlyLinkedList.getArrayFromList()).toEqual([2]);
+    });
+
+    test('it removes the values of 5 from 1->5->2->5->2', () => {
+        const singlyLinkedList = new SinglyLinkedList([1, 5, 2, 5, 2]);
+        singlyLinkedList.removeElements(5);
+
+        expect(singlyLinkedList.getArrayFromList()).toEqual([1, 2, 2]);
+    });
+
+    test('it removes the values of 4 from 4->3->5->10->2->8->4->5->2', () => {
+        const singlyLinkedList = new SinglyLinkedList([4, 3, 5, 10, 2, 8, 4, 5, 2]);
+        singlyLinkedList.removeElements(4);
+
+        expect(singlyLinkedList.getArrayFromList()).toEqual([3, 5, 10, 2, 8, 5, 2]);
+    });
+
+    test('it removes the values of 4 from 1->2->2->1', () => {
+        const singlyLinkedList = new SinglyLinkedList([1, 2, 2, 1]);
+        singlyLinkedList.removeElements(2);
+
+        expect(singlyLinkedList.getArrayFromList()).toEqual([1, 1]);
+    });
+});

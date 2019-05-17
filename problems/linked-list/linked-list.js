@@ -255,4 +255,34 @@ SinglyLinkedList.prototype.reversed = function() {
     return reversed;
 }
 
+/**
+ * Given a value, removes all nodes that contain it from the linked list.
+ * @param {Any} value - the value to be checked and removed from the linked list.
+ */
+SinglyLinkedList.prototype.removeElements = function(value) {
+    // Get the head of the list.
+    let node = this.head;
+    let last = null;
+
+    // Start traversing the nodes.
+    while(node !== null) {
+        // If the node being traversed has the value to remove:
+        if (node.value === value) {
+            if (node === this.head) {
+                // Simply remove the head.
+                this.head = node.next;
+            } else {
+                // Remove this node by setting the previous.next to be the node to remove.next.
+                last.next = node.next;
+            }
+        } else {
+            last = node;
+        }
+
+        if (node !== null) {
+            node = node.next;
+        }
+    }
+}
+
 module.exports = { SinglyLinkedList, Node };
