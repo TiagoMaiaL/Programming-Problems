@@ -49,7 +49,7 @@ function SinglyLinkedList(elements) {
     Object.defineProperty(this, 'tail', {
         get() {
             const getTail = node => node.next === null ? node : getTail(node.next);
-            this._tail = this._tail || getTail(this.head);
+            this._tail = this._tail || (this.head !== null ? getTail(this.head) : null);
 
             return this._tail;
         }
@@ -64,7 +64,14 @@ SinglyLinkedList.prototype.push = function(value) {
     const newTail = new Node(value);
     const oldTail = this.tail;
 
-    oldTail.next = newTail;
+    if (this.head === null) {
+        this.head = newTail;
+    }
+
+    if (oldTail !== null) {
+        oldTail.next = newTail;
+    }
+    
     this._tail = newTail;
     this.count += 1;
 }
@@ -75,13 +82,32 @@ SinglyLinkedList.prototype.push = function(value) {
  */
 SinglyLinkedList.prototype.pop = function() {
     // The new tail is the element before the current tail.
-    let getNewTail = (node) => {
-        return node.next === this.tail ? node : newTail(node.next);
+    const getNewTail = (node) => {
+        if (node.next === this.tail) {
+            // We have a new tail.
+            return node;
+        } else if (node.next === null) {
+            // The current node is the head and tail at the same time.
+            return null;
+        } else {
+            // Proceed on finding the next tail.
+            getNewTail(node.next);
+        }
     };
+
+    // Keep the last tail value.
+    const lastValue = this.tail.value;
+
     this._tail = getNewTail(this.head);
+    if (this._tail !== null) {
+        this._tail.next = null;
+    }
+
+    if (this.count === 1) {
+        this.head = null;
+    }
+
     this.count -= 1;
-    const lastValue = this.tail.next.value;
-    this.tail.next = null;
 
     return lastValue;
 }
@@ -219,9 +245,8 @@ SinglyLinkedList.prototype.insertionSort = function() {
     }
 
     const sortedList = new SinglyLinkedList([]);
-    // TODO: Refactor this:
     sortedList.head = sortedNodesHead;
-    sortedList.count = 1;
+    sortedList.count = this.count;
 
     return sortedList;
 }

@@ -100,6 +100,14 @@ describe('singlyLinkedList.push', () => {
 
         expect(singlyLinkedList.count).toBe(2);
     });
+
+    test('it adds an element to the end of the list even if the list is empty', () => {
+        const singlyLinkedList = new SinglyLinkedList([]);
+        singlyLinkedList.push('val1');
+        
+        expect(singlyLinkedList.count).toBe(1);
+        expect(singlyLinkedList.head).toBe(singlyLinkedList.tail);
+    });
 });
 
 describe('singlyLinkedList.pop', () => {
@@ -120,6 +128,19 @@ describe('singlyLinkedList.pop', () => {
     test('It removes the last element and returns it', () => {
         const singlyLinkedList = new SinglyLinkedList(['val1', 'val2']);
         expect(singlyLinkedList.pop()).toBe('val2');
+    });
+
+    test('It removes the last element and also updates the head, in case it\'s the only element', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1', 'val2']);
+        singlyLinkedList.pop();
+        expect(singlyLinkedList.head).toBe(singlyLinkedList.tail);
+    });
+
+    test('Removing the last element changes the head and tail to null', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1']);
+        singlyLinkedList.pop();
+        expect(singlyLinkedList.head).toBeNull();
+        expect(singlyLinkedList.tail).toBeNull();
     });
 });
 
@@ -154,9 +175,24 @@ describe('singlyLinkedList.shift', () => {
 
     test('It removes the first value of the list and updates the count', () => {
         const singlyLinkedList = new SinglyLinkedList(['val1', 'val2']);
-        singlyLinkedList.shift()
+        singlyLinkedList.shift();
 
         expect(singlyLinkedList.count).toBe(1);
+    });
+
+    test('It removes the first value of the list and updates the tail and head', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1', 'val2']);
+        singlyLinkedList.shift();
+
+        expect(singlyLinkedList.head).toBe(singlyLinkedList.tail);
+    });
+
+    test('It removes the only element of the list and updates the head and tail to null', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1']);
+        singlyLinkedList.shift();
+
+        expect(singlyLinkedList.head).toBeNull();
+        expect(singlyLinkedList.tail).toBeNull();
     });
 });
 
