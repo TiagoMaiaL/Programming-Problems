@@ -186,6 +186,14 @@ describe('singlyLinkedList.shift', () => {
 
         expect(singlyLinkedList.head).toBe(singlyLinkedList.tail);
     });
+
+    test('It removes the only element of the list and updates the head and tail to null', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1']);
+        singlyLinkedList.shift();
+
+        expect(singlyLinkedList.head).toBeNull();
+        expect(singlyLinkedList.tail).toBeNull();
+    });
 });
 
 describe('singlyLinkedList.indexOf', () => {
