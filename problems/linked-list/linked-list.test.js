@@ -129,6 +129,19 @@ describe('singlyLinkedList.pop', () => {
         const singlyLinkedList = new SinglyLinkedList(['val1', 'val2']);
         expect(singlyLinkedList.pop()).toBe('val2');
     });
+
+    test('It removes the last element and also updates the head, in case it\'s the only element', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1', 'val2']);
+        singlyLinkedList.pop();
+        expect(singlyLinkedList.head).toBe(singlyLinkedList.tail);
+    });
+
+    test('Removing the last element changes the head and tail to null', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1']);
+        singlyLinkedList.pop();
+        expect(singlyLinkedList.head).toBeNull();
+        expect(singlyLinkedList.tail).toBeNull();
+    });
 });
 
 describe('singlyLinkedList.unshift', () => {
@@ -162,9 +175,16 @@ describe('singlyLinkedList.shift', () => {
 
     test('It removes the first value of the list and updates the count', () => {
         const singlyLinkedList = new SinglyLinkedList(['val1', 'val2']);
-        singlyLinkedList.shift()
+        singlyLinkedList.shift();
 
         expect(singlyLinkedList.count).toBe(1);
+    });
+
+    test('It removes the first value of the list and updates the tail and head', () => {
+        const singlyLinkedList = new SinglyLinkedList(['val1', 'val2']);
+        singlyLinkedList.shift();
+
+        expect(singlyLinkedList.head).toBe(singlyLinkedList.tail);
     });
 });
 

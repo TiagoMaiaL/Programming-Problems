@@ -82,13 +82,32 @@ SinglyLinkedList.prototype.push = function(value) {
  */
 SinglyLinkedList.prototype.pop = function() {
     // The new tail is the element before the current tail.
-    let getNewTail = (node) => {
-        return node.next === this.tail ? node : newTail(node.next);
+    const getNewTail = (node) => {
+        if (node.next === this.tail) {
+            // We have a new tail.
+            return node;
+        } else if (node.next === null) {
+            // The current node is the head and tail at the same time.
+            return null;
+        } else {
+            // Proceed on finding the next tail.
+            getNewTail(node.next);
+        }
     };
+
+    // Keep the last tail value.
+    const lastValue = this.tail.value;
+
     this._tail = getNewTail(this.head);
+    if (this._tail !== null) {
+        this._tail.next = null;
+    }
+
+    if (this.count === 1) {
+        this.head = null;
+    }
+
     this.count -= 1;
-    const lastValue = this.tail.next.value;
-    this.tail.next = null;
 
     return lastValue;
 }
