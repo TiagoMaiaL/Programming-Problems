@@ -1,18 +1,26 @@
 'use strict';
 
+const { SinglyLinkedList } = require('../linked-list/linked-list');
+
 /**
  * A queue data structure.
  */
 class Queue {
     constructor() {
-        this.elements = [];
+        this.list = new SinglyLinkedList([]);
+
+        Object.defineProperty(this, 'count', {
+            get() {
+                return this.list.count;
+            }
+        });
     }
 
     /**
      * Given a value, inserts it into the end of the queue.
      */
     enqueue(value) {
-        this.elements.push(value);
+        this.list.push(value);
     }
 
     /**
@@ -20,9 +28,7 @@ class Queue {
      * @returns the immediate next element in the queue.
      */
     dequeue() {
-        // This takes O(n), this can be done in O(1).
-        // TODO: How?
-        return this.elements.shift();
+        return this.list.shift();
     }
 }
 
