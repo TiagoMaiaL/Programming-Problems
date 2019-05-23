@@ -49,7 +49,7 @@ function SinglyLinkedList(elements) {
     Object.defineProperty(this, 'tail', {
         get() {
             const getTail = node => node.next === null ? node : getTail(node.next);
-            this._tail = this._tail || getTail(this.head);
+            this._tail = this._tail || (this.head !== null ? getTail(this.head) : null);
 
             return this._tail;
         }
@@ -64,7 +64,14 @@ SinglyLinkedList.prototype.push = function(value) {
     const newTail = new Node(value);
     const oldTail = this.tail;
 
-    oldTail.next = newTail;
+    if (this.head === null) {
+        this.head = newTail;
+    }
+
+    if (oldTail !== null) {
+        oldTail.next = newTail;
+    }
+    
     this._tail = newTail;
     this.count += 1;
 }
@@ -219,9 +226,8 @@ SinglyLinkedList.prototype.insertionSort = function() {
     }
 
     const sortedList = new SinglyLinkedList([]);
-    // TODO: Refactor this:
     sortedList.head = sortedNodesHead;
-    sortedList.count = 1;
+    sortedList.count = this.count;
 
     return sortedList;
 }

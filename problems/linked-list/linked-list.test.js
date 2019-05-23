@@ -100,6 +100,14 @@ describe('singlyLinkedList.push', () => {
 
         expect(singlyLinkedList.count).toBe(2);
     });
+
+    test('it adds an element to the end of the list even if the list is empty', () => {
+        const singlyLinkedList = new SinglyLinkedList([]);
+        singlyLinkedList.push('val1');
+        
+        expect(singlyLinkedList.count).toBe(1);
+        expect(singlyLinkedList.head).toBe(singlyLinkedList.tail);
+    });
 });
 
 describe('singlyLinkedList.pop', () => {
