@@ -42,21 +42,14 @@ class Stack {
 const removeDuplicates = s => {
     const charsStack = new Stack();
 
-    for (let i = 0; i < s.length; i++) {
-        const current = s[i];
-
-        if (charsStack.peek() === current) {
+    for (char of s) {
+        if (charsStack.peek() === char) {
             charsStack.pop();
             continue;
         } else {
-            charsStack.push(current);
+            charsStack.push(char);
         }
     }
-
-    // let result = '';
-    // while (charsStack.peek() !== undefined) {
-    //     result = `${ charsStack.pop() }${ result }`;
-    // }
 
     return charsStack.elements.join('');
 };
